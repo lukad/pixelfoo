@@ -1,0 +1,32 @@
+# fly.toml file generated for foo on 2023-04-09T20:46:55+02:00
+
+app = "twilight-sea-2133"
+kill_signal = "SIGTERM"
+primary_region = "ams"
+
+# [deploy]
+# release_command = "/app/bin/migrate"
+
+[env]
+PHX_SERVER = "true"
+PHX_HOST = "twilight-sea-2133.fly.dev"
+PORT = "8080"
+
+[[services]]
+internal_port = 8080
+processes = ["app"]
+protocol = "tcp"
+
+[[services.ports]]
+handlers = ["http"]
+port = 80
+
+[[services.ports]]
+handlers = ["tls", "http"]
+port = 443
+
+[[services.tcp_checks]]
+grace_period = "1s"
+interval = "15s"
+restart_limit = 0
+timeout = "2s"
